@@ -1,11 +1,11 @@
 package se.lexicon.service;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import se.lexicon.data_access.StudentDao;
 import se.lexicon.model.Student;
 import se.lexicon.util.UserInputService;
 
+import java.util.ArrayList;
 import java.util.List;
 @Component
 public class StudentManagementConsoleImpl implements StudentManagement{
@@ -26,7 +26,9 @@ public class StudentManagementConsoleImpl implements StudentManagement{
     @Autowired
     private StudentDao studentDao;
 
-    public Student create() {
+    private List<Student> storage = new ArrayList<>();
+
+       public Student create() {
         return null;
     }
 
