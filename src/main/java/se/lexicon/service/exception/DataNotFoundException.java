@@ -1,4 +1,4 @@
-package se.lexicon.exception;
+package se.lexicon.service.exception;
 
     public class DataNotFoundException extends Exception {
 
