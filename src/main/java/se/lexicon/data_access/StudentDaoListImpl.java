@@ -5,6 +5,8 @@ import se.lexicon.model.Student;
 import java.util.List;
 @Component
 public class StudentDaoListImpl  implements StudentDao{
+
+
     public Student find(int id) {
         return null;
     }
