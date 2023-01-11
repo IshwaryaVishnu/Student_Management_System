@@ -10,7 +10,7 @@ import java.util.List;
 @Component
 public class StudentManagementConsoleImpl implements StudentManagement{
 
- // Constructor injection
+ // Constructor injection:
   /*  private final UserInputService scannerService;
     private final StudentDao studentDao;
 
@@ -20,7 +20,7 @@ public class StudentManagementConsoleImpl implements StudentManagement{
         this.studentDao = studentDao;
     }*/
 
-    //Field injection
+    //Field injection:
     @Autowired
     private UserInputService scannerService;
     @Autowired
