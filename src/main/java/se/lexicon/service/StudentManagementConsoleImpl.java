@@ -25,26 +25,47 @@ public class StudentManagementConsoleImpl implements StudentManagement {
 
     @Override
     public Student save(Student student) {
-        return null;
+        students.add(student);
+        return student;
     }
+
 
     @Override
     public Student find(int id) {
+        for (Student student : students) {
+            if (student.getId() == id) {
+                return student;
+            }
+        }
         return null;
     }
 
     @Override
     public Student remove(int id) {
+        for (int i = 0; i < students.size(); i++) {
+            if (students.get(i).getId() == id) {
+                Student removedStudent = students.get(i);
+                students.remove(i);
+                return removedStudent;
+            }
+    }
         return null;
     }
 
     @Override
     public List<Student> findAll() {
-        return null;
+        return new ArrayList<>();
     }
 
     @Override
     public Student edit(Student student) {
+        for (int i = 0; i < students.size(); i++) {
+            if (students.get(i).getId() == student.getId()) {
+                students.set(i, student);
+                return student;
+            }
+
+    }
         return null;
     }
 }
