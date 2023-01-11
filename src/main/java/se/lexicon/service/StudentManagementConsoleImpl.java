@@ -26,29 +26,51 @@ public class StudentManagementConsoleImpl implements StudentManagement{
     @Autowired
     private StudentDao studentDao;
 
-    private List<Student> storage = new ArrayList<>();
+    private List<Student> students = new ArrayList<>();
 
        public Student create() {
-        return null;
+        return (Student) students;
     }
 
     public Student save(Student student) {
-        return null;
+        students.add(student);
+        return student;
     }
 
     public Student find(int id) {
+        for (Student student : students) {
+            if (student.getId() == id) {
+                return student;
+            }
+        }
         return null;
     }
+
 
     public Student remove(int id) {
+        for (int i = 0; i < students.size(); i++) {
+            if (students.get(i).getId() == id) {
+                Student removedStudent = students.get(i);
+                students.remove(i);
+                return removedStudent;
+            }
+        }
         return null;
     }
 
+
     public List<Student> findAll() {
-        return null;
+        return new ArrayList<>();
     }
 
     public Student edit(Student student) {
+        for (int i = 0; i < students.size(); i++) {
+            if (students.get(i).getId() == student.getId()) {
+                students.set(i, student);
+                return student;
+            }
+        }
         return null;
     }
-}
+    }
+
