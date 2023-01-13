@@ -11,6 +11,6 @@ public interface StudentDao {
 
     List<Student> findAll();
 
-    void delete(int id) throws DataNotFoundException;
+    void delete(int id) ;
 
 }

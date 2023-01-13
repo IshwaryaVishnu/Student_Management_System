@@ -5,7 +5,6 @@ import se.lexicon.data_access.StudentDao;
 import se.lexicon.service.exception.DataNotFoundException;
 import se.lexicon.model.Student;
 import se.lexicon.util.UserInputService;
-
 import java.util.ArrayList;
 import java.util.List;
 @Component
@@ -17,56 +16,50 @@ public class StudentManagementConsoleImpl implements StudentManagement {
     @Autowired
     private StudentDao studentDao;
 
-    private List<Student> students = new ArrayList<>();
 
     @Override
     public Student create() {
+        //step valid
+        Student student = new Student(scannerService.getString());
+        studentDao.save(student);
         return null;
     }
 
     @Override
     public Student save(Student student) {
-        students.add(student);
-        return student;
+        if (student == null) throw new IllegalArgumentException("student was null");
+        return studentDao.save(student);
     }
 
 
     @Override
-    public Student find(int id) {
-        for (Student student : students) {
-            if (student.getId() == id) {
-                return student;
-            }
-        }
-        return null;
+    public Student find(int id) throws DataNotFoundException {
+        if (id == 0) throw new IllegalArgumentException("id was null");
+        return studentDao.find(id);
     }
 
+
     @Override
-    public Student remove(int id)  {
-        for (int i = 0; i < students.size(); i++) {
-            if (students.get(i).getId() == id) {
-                Student removedStudent = students.get(i);
-                students.remove(i);
-                return removedStudent;
-            }
-        }
-        return null;
+    public Student remove(int id) {
+        if (id == 0) throw new IllegalArgumentException("Student Id was null");
+        Student studentFind = studentDao.find(id);
+        studentDao.delete(studentFind.getId());
+        return studentFind;
     }
 
     @Override
     public List<Student> findAll() {
-        return new ArrayList<>();
+        return new ArrayList<>(studentDao.findAll());
     }
 
     @Override
-    public Student edit(Student student) throws DataNotFoundException {
-        for (int i = 0; i < students.size(); i++) {
-            if (students.get(i).getId() == student.getId()) {
-                students.set(i, student);
-                return student;
-            }
-        }
-        throw new DataNotFoundException("Student with id " + student.getId() + " not found.");
+    public Student edit(Student student) throws DataNotFoundException{
+        if (student == null) throw new IllegalArgumentException(" Student data was null");
+       Student studentFind =  studentDao.find(student.getId());
+          if (studentFind == null) throw  new  DataNotFoundException("Student Data was not found");
+            studentDao.save(student);
+            return studentFind;
+
     }
 }
 

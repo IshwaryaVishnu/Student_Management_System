@@ -15,9 +15,16 @@ public class StudentDaoListImpl  implements StudentDao {
     public Student save(Student student) {
         //step1 validate student
         if(student == null) throw new IllegalArgumentException( " Student was null");
-        int studentID = StudentIdSequencer.nextId();
-        student.setId(studentID);
-        storage.add(student);
+
+        if(student.getId() == 0) {
+                int studentID = StudentIdSequencer.nextId();
+                student.setId(studentID);
+                storage.add(student);
+
+            }else {
+            storage.add(student);
+
+        }
 
         return student;
     }
@@ -25,12 +32,13 @@ public class StudentDaoListImpl  implements StudentDao {
     @Override
     public Student find(int id) {
         if (id == 0) throw  new IllegalArgumentException( "Id was Null");
+       Student studentFind = null;
         for (Student student : storage) {
             if (student.getId() == id) {
-                return student;
+                studentFind = student;
             }
         }
-        return null;
+        return studentFind;
     }
 
 
@@ -41,10 +49,10 @@ public class StudentDaoListImpl  implements StudentDao {
     }
 
     @Override
-    public void delete(int id)throws  DataNotFoundException {
+    public void delete(int id) {
        if(id == 0) throw  new IllegalArgumentException("id was null");
        Student studentFind = find(id);
-       if (studentFind == null) throw new DataNotFoundException(" Student Data not found");
+      // if (studentFind == null) throw new DataNotFoundException(" Student Data not found");
        storage.remove(studentFind);
     }
 }
